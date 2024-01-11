@@ -21,3 +21,6 @@ ENV/
 
 # draw io
 *.drawio
+
+# vscode
+.vscode

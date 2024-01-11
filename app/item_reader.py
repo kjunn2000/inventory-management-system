@@ -1,6 +1,7 @@
 import mysql.connector
 from datetime import datetime
 
+
 class Item:
     def __init__(self, id, name, category, price, last_updated):
         self.id = id
@@ -9,6 +10,7 @@ class Item:
         self.price = price
         self.last_updated = last_updated
 
+
 def connect_to_database():
     return mysql.connector.connect(
         host="localhost",
@@ -16,6 +18,7 @@ def connect_to_database():
         password="password",
         database="inventory_management",
     )
+
 
 def fetch_items_from_database(cursor, dt_from, dt_to):
     query = (
@@ -28,8 +31,10 @@ def fetch_items_from_database(cursor, dt_from, dt_to):
         for id, name, category, price, last_updated in cursor.fetchall()
     ]
 
+
 def calculate_total_price(items):
     return sum(float(item.price) for item in items)
+
 
 def get_items_by_last_updated_dt(date_range):
     try:
@@ -42,12 +47,14 @@ def get_items_by_last_updated_dt(date_range):
         items_data = fetch_items_from_database(cursor, dt_from, dt_to)
 
         filtered_items = [
-            {"id": item.id, "name": item.name, "category": item.category, "price": item.price}
+            {"id": item.id, "name": item.name,
+                "category": item.category, "price": item.price}
             for item in items_data
         ]
         total_price = calculate_total_price(items_data)
 
-        result = {"items": filtered_items, "total_price": "{:.2f}".format(total_price)}
+        result = {"items": filtered_items,
+                  "total_price": "{:.2f}".format(total_price)}
         return result
 
     finally:

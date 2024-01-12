@@ -1,5 +1,7 @@
 import mysql.connector
 import os
+from mysql.connector import Error
+from contextlib import contextmanager
 
 
 def get_database_config():
@@ -29,3 +31,18 @@ def execute_query(cursor, query, parameters=None):
 
 def fetch_all(cursor):
     return cursor.fetchall()
+
+
+@contextmanager
+def get_database_connection():
+    config = get_database_config()
+    try:
+        connection = mysql.connector.connect(**config)
+        cursor = connection.cursor()
+        yield connection, cursor
+    except Error as e:
+        print(f"Error connecting to the database: {e}")
+        raise
+    finally:
+        cursor.close()
+        connection.close()

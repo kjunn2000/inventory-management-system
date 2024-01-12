@@ -1,25 +1,19 @@
+from app.models.item import Item
+from app.utils.constant import ALL_CATEGORIES
 from app.utils.db_utils import connect_to_database
 
-
-class Item:
-    def __init__(self, id, name, category, price, last_updated):
-        self.id = id
-        self.name = name
-        self.category = category
-        self.price = price
-        self.last_updated = last_updated
+FETCH_ALL_ITEMS_QUERY = "SELECT id, name, category, price, last_updated_dt FROM t_product_item"
+FETCH_CATEGORY_ITEMS_QUERY = (
+    "SELECT id, name, category, price, last_updated_dt FROM t_product_item "
+    "WHERE category = %s"
+)
 
 
 def fetch_items_from_database(cursor, category):
-    if category == "all":
-        query = "SELECT id, name, category, price, last_updated_dt FROM t_product_item"
-        cursor.execute(query)
-    else:
-        query = (
-            "SELECT id, name, category, price, last_updated_dt FROM t_product_item "
-            "WHERE category = %s"
-        )
-        cursor.execute(query, (category,))
+    query = FETCH_ALL_ITEMS_QUERY if category == ALL_CATEGORIES else FETCH_CATEGORY_ITEMS_QUERY
+    parameters = (category,) if category != ALL_CATEGORIES else None
+
+    cursor.execute(query, parameters)
 
     return [
         Item(id, name, category, price, last_updated)
@@ -50,7 +44,7 @@ def group_items_by_category(items_data):
 
 def aggregate_items_by_category(category_data):
     try:
-        category = category_data.get("category", "all")
+        category = category_data.get("category", ALL_CATEGORIES)
 
         connection = connect_to_database()
         cursor = connection.cursor()

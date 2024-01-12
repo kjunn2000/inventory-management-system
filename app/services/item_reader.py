@@ -1,15 +1,7 @@
 from datetime import datetime
 
+from app.models.item import Item
 from app.utils.db_utils import execute_query, connect_to_database, fetch_all
-
-
-class Item:
-    def __init__(self, id, name, category, price, last_updated):
-        self.id = id
-        self.name = name
-        self.category = category
-        self.price = price
-        self.last_updated = last_updated
 
 
 def fetch_items_from_database(cursor, dt_from, dt_to):

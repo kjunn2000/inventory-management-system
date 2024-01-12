@@ -1,17 +1,10 @@
 import json
-import os
+
 import mysql.connector
 from mysql.connector import Error
-from models import new_item_dto
 
-
-def get_database_config():
-    return {
-        'host': os.environ.get('MYSQL_HOST', 'localhost'),
-        'user': os.environ.get('MYSQL_USER', 'admin'),
-        'password': os.environ.get('MYSQL_PASSWORD', 'password'),
-        'database': os.environ.get('MYSQL_DATABASE', 'inventory_management')
-    }
+from app.models import new_item_dto
+from app.utils.db_utils import get_database_config
 
 
 def format_price(price):

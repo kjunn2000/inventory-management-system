@@ -1,6 +1,4 @@
-from datetime import datetime
-import mysql.connector
-from collections import defaultdict
+from app.utils.db_utils import connect_to_database
 
 
 class Item:
@@ -10,15 +8,6 @@ class Item:
         self.category = category
         self.price = price
         self.last_updated = last_updated
-
-
-def connect_to_database():
-    return mysql.connector.connect(
-        host="localhost",
-        user="admin",
-        password="password",
-        database="inventory_management",
-    )
 
 
 def fetch_items_from_database(cursor, category):

@@ -8,3 +8,11 @@ class Item:
 
     def __repr__(self):
         return f"Item(id={self.id}, name={self.name}, category={self.category}, price={self.price}, last_updated_dt={self.last_updated_dt})"
+
+    def to_json(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "category": self.category,
+            "price": self.price
+        }

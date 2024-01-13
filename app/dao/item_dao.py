@@ -1,3 +1,5 @@
+from app.models.item import Item
+from app.utils.db_utils import execute_query, fetch_all
 from app.utils.db_utils import get_database_connection
 
 
@@ -8,7 +10,7 @@ def item_exists(name):
         return cursor.fetchone() is not None
 
 
-def update_existing_item(new_item):
+def update_item(new_item):
     with get_database_connection() as (connection, cursor):
         update_query = "UPDATE t_product_item SET price=%s, last_updated_dt=NOW() WHERE name=%s;"
         update_values = (new_item.price, new_item.name)
@@ -24,7 +26,7 @@ def update_existing_item(new_item):
         return result[0]
 
 
-def insert_new_item(new_item):
+def create_item(new_item):
     with get_database_connection() as (connection, cursor):
         insert_query = "INSERT INTO t_product_item (name, category, price, last_updated_dt) VALUES (%s, %s, %s, NOW());"
         insert_values = (new_item.name, new_item.category, new_item.price)
@@ -33,3 +35,16 @@ def insert_new_item(new_item):
         connection.commit()
 
         return cursor.lastrowid
+
+
+def get_items(dt_from, dt_to):
+    with get_database_connection() as (_, cursor):
+        query = (
+            "SELECT id, name, category, price, last_updated_dt FROM t_product_item "
+            "WHERE last_updated_dt BETWEEN %s AND %s"
+        )
+        parameters = (dt_from, dt_to)
+
+        execute_query(cursor, query, parameters)
+        return [Item(id, name, category, price, last_updated) for id, name, category, price, last_updated in
+                fetch_all(cursor)]

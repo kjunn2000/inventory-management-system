@@ -1,8 +1,6 @@
-import json
-
 from mysql.connector import Error
 
-from app.dao.item_dao import item_exists, update_existing_item, insert_new_item
+from app.dao.item_dao import item_exists, update_item, create_item
 from app.models import new_item_dto
 from app.services.item_validation_service import ItemValidationService
 
@@ -25,11 +23,11 @@ def create_or_update_item(request):
         new_item = new_item_dto.NewItemDto(**request)
         new_item.price = format_price(new_item.price)
 
-        item_id = update_existing_item(new_item) \
+        item_id = update_item(new_item) \
             if item_exists(new_item.name) \
-            else insert_new_item(new_item)
+            else create_item(new_item)
 
-        return json.dumps({'id': item_id})
+        return {'id': item_id}
 
     except (Error, ValueError) as e:
-        return json.dumps({'error': str(e)})
+        return {'error': str(e)}

@@ -53,8 +53,7 @@ def aggregate_items_by_category(category_data):
 
         grouped_items = group_items_by_category(items_data)
 
-        result = {"items": grouped_items}
-        return result
+        return {"items": grouped_items}
 
     finally:
         cursor.close()

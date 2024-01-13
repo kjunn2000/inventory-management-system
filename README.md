@@ -104,7 +104,7 @@ python .\scripts\search_cateogry_script.py
 # How to test it
 ## 1. Run Unit Tests:
 
-This command runs unit tests for the project. There are a total number of 53 test cases.
+PyUnit is used for the unit testing in the project. The command below runs all the unit tests for the project. There are a total number of 53 test cases.
 
 ```bash
 python -m unittest discover .\tests\unit\

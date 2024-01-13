@@ -1,7 +1,8 @@
-import mysql.connector
 import os
-from mysql.connector import Error
 from contextlib import contextmanager
+
+import mysql.connector
+from mysql.connector import Error
 
 
 def get_database_config():

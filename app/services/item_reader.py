@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from app.dao.item_dao import get_items_by_dt
+from app.utils.constant import PRICE_FORMATTER, DATE_FORMATTER
 
 
 def calculate_total_price(items):
@@ -14,13 +15,13 @@ def map_items_response_dto(items_data):
     ]
     total_price = calculate_total_price(items_data)
 
-    return {"items": filtered_items, "total_price": "{:.2f}".format(total_price)}
+    return {"items": filtered_items, "total_price": PRICE_FORMATTER.format(total_price)}
 
 
 def get_items_by_last_updated_dt(date_range):
     try:
-        dt_from = datetime.strptime(date_range["dt_from"], "%Y-%m-%d %H:%M:%S")
-        dt_to = datetime.strptime(date_range["dt_to"], "%Y-%m-%d %H:%M:%S")
+        dt_from = datetime.strptime(date_range["dt_from"], DATE_FORMATTER)
+        dt_to = datetime.strptime(date_range["dt_to"], DATE_FORMATTER)
 
         items_data = get_items_by_dt(dt_from, dt_to)
 

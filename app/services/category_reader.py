@@ -1,6 +1,6 @@
 from app.dao.item_dao import get_items, get_items_by_category
 from app.services.item_validation_service import ItemValidationService
-from app.utils.constant import ALL_CATEGORIES
+from app.utils.constant import ALL_CATEGORIES, PRICE_FORMATTER
 
 
 def validate_input(category):
@@ -30,7 +30,7 @@ def group_items_by_category(items_data):
 
 
 def format_price(price):
-    return "{:.2f}".format(price)
+    return PRICE_FORMATTER.format(price)
 
 
 def format_grouped_items(grouped_items):

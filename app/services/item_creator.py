@@ -3,15 +3,17 @@ from mysql.connector import Error
 from app.dao.item_dao import item_exists, update_item, create_item
 from app.models import new_item_dto
 from app.services.item_validation_service import ItemValidationService
+from app.utils.constant import PRICE_FORMATTER
+from app.utils.error_message import INVALID_PRICE_FORMAT
 
 
 def format_price(price):
     try:
         price_float = float(price)
-        formatted_price = "{:.2f}".format(price_float)
+        formatted_price = PRICE_FORMATTER.format(price_float)
         return formatted_price
     except ValueError:
-        raise ValueError("Invalid price format")
+        raise ValueError(INVALID_PRICE_FORMAT)
 
 
 def create_or_update_item(request):

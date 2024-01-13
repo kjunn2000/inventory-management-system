@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from app.dao.item_dao import get_items
+from app.dao.item_dao import get_items_by_dt
 
 
 def calculate_total_price(items):
@@ -22,7 +22,7 @@ def get_items_by_last_updated_dt(date_range):
         dt_from = datetime.strptime(date_range["dt_from"], "%Y-%m-%d %H:%M:%S")
         dt_to = datetime.strptime(date_range["dt_to"], "%Y-%m-%d %H:%M:%S")
 
-        items_data = get_items(dt_from, dt_to)
+        items_data = get_items_by_dt(dt_from, dt_to)
 
         return map_items_response_dto(items_data)
 

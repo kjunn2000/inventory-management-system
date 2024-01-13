@@ -37,13 +37,37 @@ def create_item(new_item):
         return cursor.lastrowid
 
 
-def get_items(dt_from, dt_to):
+def get_items():
+    with get_database_connection() as (_, cursor):
+        query = (
+            "SELECT id, name, category, price, last_updated_dt FROM t_product_item "
+        )
+
+        execute_query(cursor, query)
+        return [Item(id, name, category, price, last_updated) for id, name, category, price, last_updated in
+                fetch_all(cursor)]
+
+
+def get_items_by_dt(dt_from, dt_to):
     with get_database_connection() as (_, cursor):
         query = (
             "SELECT id, name, category, price, last_updated_dt FROM t_product_item "
             "WHERE last_updated_dt BETWEEN %s AND %s"
         )
         parameters = (dt_from, dt_to)
+
+        execute_query(cursor, query, parameters)
+        return [Item(id, name, category, price, last_updated) for id, name, category, price, last_updated in
+                fetch_all(cursor)]
+
+
+def get_items_by_category(category):
+    with get_database_connection() as (_, cursor):
+        query = (
+            "SELECT id, name, category, price, last_updated_dt FROM t_product_item "
+            "WHERE category = %s"
+        )
+        parameters = (category,)
 
         execute_query(cursor, query, parameters)
         return [Item(id, name, category, price, last_updated) for id, name, category, price, last_updated in

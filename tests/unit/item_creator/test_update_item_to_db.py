@@ -13,7 +13,6 @@ class TestUpdateItemToDb(unittest.TestCase):
             "price": "663333.222222225"
         }
 
-
     @patch('app.services.item_creator.format_price', return_value="10.50")
     @patch('app.services.item_creator.item_exists', return_value=True)
     @patch('app.services.item_creator.update_item', return_value=123)
@@ -23,7 +22,6 @@ class TestUpdateItemToDb(unittest.TestCase):
 
         self.assertEqual(result, {'id': 123})
         mock_update_item.assert_called_once_with(ANY)
-
 
     @patch('app.services.item_creator.format_price', return_value="10.50")
     @patch('app.services.item_creator.item_exists', return_value=False)

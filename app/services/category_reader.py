@@ -1,24 +1,11 @@
-from app.models.item import Item
+from app.dao.item_dao import get_items, get_items_by_category
+from app.services.item_validation_service import ItemValidationService
 from app.utils.constant import ALL_CATEGORIES
-from app.utils.db_utils import connect_to_database
-
-FETCH_ALL_ITEMS_QUERY = "SELECT id, name, category, price, last_updated_dt FROM t_product_item"
-FETCH_CATEGORY_ITEMS_QUERY = (
-    "SELECT id, name, category, price, last_updated_dt FROM t_product_item "
-    "WHERE category = %s"
-)
 
 
-def fetch_items_from_database(cursor, category):
-    query = FETCH_ALL_ITEMS_QUERY if category == ALL_CATEGORIES else FETCH_CATEGORY_ITEMS_QUERY
-    parameters = (category,) if category != ALL_CATEGORIES else None
-
-    cursor.execute(query, parameters)
-
-    return [
-        Item(id, name, category, price, last_updated)
-        for id, name, category, price, last_updated in cursor.fetchall()
-    ]
+def validate_input(category):
+    item_validation_service = ItemValidationService()
+    item_validation_service.validate_category(**category)
 
 
 def calculate_total_price(items):
@@ -42,19 +29,30 @@ def group_items_by_category(items_data):
     return list(grouped_items.values())
 
 
+def format_price(price):
+    return "{:.2f}".format(price)
+
+
+def format_grouped_items(grouped_items):
+    for group in grouped_items:
+        group['total_price'] = format_price(group['total_price'])
+
+    return grouped_items
+
+
 def aggregate_items_by_category(category_data):
     try:
+        validate_input(category_data)
+
         category = category_data.get("category", ALL_CATEGORIES)
 
-        connection = connect_to_database()
-        cursor = connection.cursor()
-
-        items_data = fetch_items_from_database(cursor, category)
+        items_data = get_items() if category == ALL_CATEGORIES \
+            else get_items_by_category(category)
 
         grouped_items = group_items_by_category(items_data)
+        formatted_items = format_grouped_items(grouped_items)
 
-        return {"items": grouped_items}
+        return {"items": formatted_items}
 
-    finally:
-        cursor.close()
-        connection.close()
+    except (Exception, ValueError) as e:
+        return {'error': str(e)}

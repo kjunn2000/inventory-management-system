@@ -45,7 +45,3 @@ class TestGroupItemFunction(unittest.TestCase):
             {'category': 'Furniture', 'total_price': 5.75, 'count': 1}
         ]
         self.assertEqual(result, expected_result)
-
-
-if __name__ == '__main__':
-    unittest.main()

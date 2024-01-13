@@ -7,13 +7,14 @@ from app.services.category_reader import aggregate_items_by_category, ALL_CATEGO
 class TestAggregateItemsFunction(unittest.TestCase):
 
     @patch('app.services.category_reader.validate_input', return_value=None)
-    @patch('app.services.category_reader.get_items', return_value=[{"item_id": 1, "name": "TV", "price": 499.99}])
+    @patch('app.services.category_reader.get_items_by_category',
+           return_value=[{"item_id": 1, "name": "TV", "category": "Electronics", "price": 499.99}])
     @patch('app.services.category_reader.group_items_by_category',
            return_value=[{"category": "Electronics", "total_price": 499.99, "count": 1}])
     @patch('app.services.category_reader.format_grouped_items',
            return_value=[{"category": "Electronics", "total_price": "499.99", "count": 1}])
     def test_get_aggregate_items_success(self, mock_format_grouped_items, mock_group_items_by_category,
-                                         mock_get_items, mock_validate_input):
+                                         mock_get_items_by_category, mock_validate_input):
         category_data = {"category": "Electronics"}
 
         result = aggregate_items_by_category(category_data)
@@ -72,7 +73,3 @@ class TestAggregateItemsFunction(unittest.TestCase):
         mock_validate_input.assert_called_once_with(category)
         mock_get_items.assert_called_once()
         self.assertEqual(result, {'error': "Error fetching items"})
-
-
-if __name__ == '__main__':
-    unittest.main()

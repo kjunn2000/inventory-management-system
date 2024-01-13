@@ -51,7 +51,3 @@ class TestUpdateItemToDb(unittest.TestCase):
 
         self.assertIn('error', result)
         self.assertEqual(result['error'], 'Invalid item')
-
-
-if __name__ == '__main__':
-    unittest.main()

@@ -24,7 +24,3 @@ class TestFormatPrice(unittest.TestCase):
     def test_over_decimal_place_limit(self):
         result = format_price("15.75111111111")
         self.assertEqual(result, "15.75")
-
-
-if __name__ == '__main__':
-    unittest.main()

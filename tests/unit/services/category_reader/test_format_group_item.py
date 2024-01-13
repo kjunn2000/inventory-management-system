@@ -41,7 +41,3 @@ class TestFormatGroupItem(unittest.TestCase):
             {'category': 'Clothing', 'total_price': "30.76", 'count': 3}
         ]
         self.assertEqual(result, expected_result)
-
-
-if __name__ == '__main__':
-    unittest.main()

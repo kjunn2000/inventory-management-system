@@ -22,13 +22,17 @@ def connect_to_database():
 
 @contextmanager
 def get_database_connection():
+    connection = None
+    cursor = None
     try:
         connection = connect_to_database()
         cursor = connection.cursor()
         yield connection, cursor
     except Error as e:
-        print(f"{DB_CONNECTION_ERROR}: {e}")
-        raise
+        e.message = f"{DB_CONNECTION_ERROR}: {e}"
+        raise e
     finally:
-        cursor.close()
-        connection.close()
+        if cursor is not None:
+            cursor.close()
+        if connection is not None:
+            connection.close()

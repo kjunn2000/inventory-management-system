@@ -35,7 +35,3 @@ class TestCategoryInputFunctions(unittest.TestCase):
 
         self.assertEqual(str(context.exception), "Validation error")
         mock_validate_category.assert_called_once_with(category="A" * 51)
-
-
-if __name__ == '__main__':
-    unittest.main()

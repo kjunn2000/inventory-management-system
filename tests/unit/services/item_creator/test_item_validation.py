@@ -57,7 +57,3 @@ class TestItemValidationService(unittest.TestCase):
         price = "12345678901234567890"
         with self.assertRaises(ValueError):
             self.validation_service.validate_item(name, category, price)
-
-
-if __name__ == '__main__':
-    unittest.main()

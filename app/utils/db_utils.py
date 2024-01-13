@@ -2,47 +2,32 @@ import os
 from contextlib import contextmanager
 
 import mysql.connector
+from dotenv import load_dotenv
 from mysql.connector import Error
 
+from app.utils.db_constant import ENV_MYSQL_HOST, ENV_MYSQL_USER, ENV_MYSQL_PASSWORD, ENV_MYSQL_DATABASE
+from app.utils.error_message import DB_CONNECTION_ERROR
 
-def get_database_config():
-    return {
-        'host': os.environ.get('MYSQL_HOST', 'localhost'),
-        'user': os.environ.get('MYSQL_USER', 'admin'),
-        'password': os.environ.get('MYSQL_PASSWORD', 'password'),
-        'database': os.environ.get('MYSQL_DATABASE', 'inventory_management')
-    }
+load_dotenv()
 
 
 def connect_to_database():
     return mysql.connector.connect(
-        host="localhost",
-        user="admin",
-        password="password",
-        database="inventory_management",
+        host=os.getenv(ENV_MYSQL_HOST),
+        user=os.getenv(ENV_MYSQL_USER),
+        password=os.getenv(ENV_MYSQL_PASSWORD),
+        database=os.getenv(ENV_MYSQL_DATABASE),
     )
-
-
-def execute_query(cursor, query, parameters=None):
-    if parameters:
-        cursor.execute(query, parameters)
-    else:
-        cursor.execute(query)
-
-
-def fetch_all(cursor):
-    return cursor.fetchall()
 
 
 @contextmanager
 def get_database_connection():
-    config = get_database_config()
     try:
-        connection = mysql.connector.connect(**config)
+        connection = connect_to_database()
         cursor = connection.cursor()
         yield connection, cursor
     except Error as e:
-        print(f"Error connecting to the database: {e}")
+        print(f"{DB_CONNECTION_ERROR}: {e}")
         raise
     finally:
         cursor.close()

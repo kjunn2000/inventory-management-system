@@ -1,5 +1,4 @@
 from app.models.item import Item
-from app.utils.db_utils import execute_query, fetch_all
 from app.utils.db_utils import get_database_connection
 
 
@@ -43,9 +42,10 @@ def get_items():
             "SELECT id, name, category, price, last_updated_dt FROM t_product_item "
         )
 
-        execute_query(cursor, query)
+        cursor.execute(query)
+
         return [Item(id, name, category, price, last_updated) for id, name, category, price, last_updated in
-                fetch_all(cursor)]
+                cursor.fetchall()]
 
 
 def get_items_by_dt(dt_from, dt_to):
@@ -54,11 +54,11 @@ def get_items_by_dt(dt_from, dt_to):
             "SELECT id, name, category, price, last_updated_dt FROM t_product_item "
             "WHERE last_updated_dt BETWEEN %s AND %s"
         )
-        parameters = (dt_from, dt_to)
 
-        execute_query(cursor, query, parameters)
+        cursor.execute(query, (dt_from, dt_to))
+
         return [Item(id, name, category, price, last_updated) for id, name, category, price, last_updated in
-                fetch_all(cursor)]
+                cursor.fetchall()]
 
 
 def get_items_by_category(category):
@@ -67,8 +67,8 @@ def get_items_by_category(category):
             "SELECT id, name, category, price, last_updated_dt FROM t_product_item "
             "WHERE category = %s"
         )
-        parameters = (category,)
 
-        execute_query(cursor, query, parameters)
+        cursor.execute(query, (category,))
+
         return [Item(id, name, category, price, last_updated) for id, name, category, price, last_updated in
-                fetch_all(cursor)]
+                cursor.fetchall()]

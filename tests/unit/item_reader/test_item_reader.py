@@ -33,21 +33,21 @@ class TestItemReader(TestCase):
         }
         self.assertEqual(response, expected_error_message)
 
-    @patch('app.services.item_reader.get_items')
+    @patch('app.services.item_reader.get_items_by_dt')
     @patch('app.services.item_reader.map_items_response_dto')
-    def test_retrieve_items_with_total_price_success(self, mock_map_items_response_dto, mock_get_items):
+    def test_retrieve_items_with_total_price_success(self, mock_map_items_response_dto, mock_get_items_by_dt):
         input_data = {
             "dt_from": "2024-01-01 00:00:00",
             "dt_to": "2024-01-31 23:59:59"
         }
 
-        mock_get_items.return_value = self.mock_items_data
+        mock_get_items_by_dt.return_value = self.mock_items_data
         mock_map_items_response_dto.return_value = self.expected_response
 
         result = get_items_by_last_updated_dt(input_data)
 
-        mock_get_items.assert_called_once_with(datetime(2024, 1, 1, 0, 0),
-                                               datetime(2024, 1, 31, 23, 59, 59))
+        mock_get_items_by_dt.assert_called_once_with(datetime(2024, 1, 1, 0, 0),
+                                                     datetime(2024, 1, 31, 23, 59, 59))
         mock_map_items_response_dto.assert_called_once_with(self.mock_items_data)
         self.assertEqual(result, self.expected_response)
 

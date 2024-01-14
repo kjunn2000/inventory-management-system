@@ -38,22 +38,23 @@ def create_item(new_item):
         return cursor.lastrowid
 
 
+def extract_items_from_cursor(cursor_results):
+    return [Item(id, name, category, price, last_updated) for id, name, category, price, last_updated in cursor_results]
+
+
 def get_items():
     with get_database_connection() as (_, cursor):
         cursor.execute(SELECT_ALL_ITEMS_QUERY)
-        return [Item(id, name, category, price, last_updated) for id, name, category, price, last_updated in
-                cursor.fetchall()]
+        return extract_items_from_cursor(cursor.fetchall())
 
 
 def get_items_by_dt(dt_from, dt_to):
     with get_database_connection() as (_, cursor):
         cursor.execute(f"{SELECT_ALL_ITEMS_QUERY}{SELECT_ITEMS_BY_DT_WHERE_CLAUSE_QUERY}", (dt_from, dt_to))
-        return [Item(id, name, category, price, last_updated) for id, name, category, price, last_updated in
-                cursor.fetchall()]
+        return extract_items_from_cursor(cursor.fetchall())
 
 
 def get_items_by_category(category):
     with get_database_connection() as (_, cursor):
         cursor.execute(f"{SELECT_ALL_ITEMS_QUERY}{SELECT_ITEMS_BY_CATEGORY_WHERE_CLAUSE_QUERY}", (category,))
-        return [Item(id, name, category, price, last_updated) for id, name, category, price, last_updated in
-                cursor.fetchall()]
+        return extract_items_from_cursor(cursor.fetchall())

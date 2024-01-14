@@ -123,7 +123,7 @@ python .\scripts\search_cateogry_script.py
 # How to test it
 ## 1. Run Unit Tests:
 
-PyUnit is used for the unit testing in the project. The command below runs all the unit tests for the project. There are a total number of 60 test cases.
+PyUnit is used for the unit testing in the project. The command below runs all the unit tests for the project. There are a total number of 65 test cases.
 
 ```bash
 python -m coverage run -m unittest discover .\tests\unit\
@@ -131,7 +131,7 @@ python -m coverage run -m unittest discover .\tests\unit\
 
 After run the script above, you should expect to see the below result.
 
-![alt text](https://github.com/kjunn2000/inventing_management_system_readme_image/blob/main/image%20(32).png?raw=true)
+![alt text](https://github.com/kjunn2000/inventing_management_system_readme_image/blob/main/image%20(35).png?raw=true)
 
 ## 2. Generate and View Code Coverage Report:
 
@@ -140,7 +140,8 @@ This generates and displays a code coverage report for the unit tests. By run th
 ```bash
 python -m coverage report
 ```
-![alt text](https://github.com/kjunn2000/inventing_management_system_readme_image/blob/main/image%20(33).png?raw=true)
+![alt text](https://github.com/kjunn2000/inventing_management_system_readme_image/blob/main/image%20(36).png?raw=true)
+![alt text](https://github.com/kjunn2000/inventing_management_system_readme_image/blob/main/image%20(37).png?raw=true)
 
 
 
@@ -154,16 +155,16 @@ python -m coverage report
 1. **id** (INT, AUTO_INCREMENT)
    - Primary key for the product item.
 
-2. **name** (VARCHAR(255), UNIQUE)
+2. **name** (VARCHAR(255), UNIQUE, NOT NULL)
    - Unique identifier for the product item. Assigned as a unique key to ensure each product has a distinct name.
 
-3. **category** (VARCHAR(50))
+3. **category** (VARCHAR(50), NOT NULL)
    - Represents the category to which the product belongs.
 
-4. **price** (VARCHAR(20))
+4. **price** (VARCHAR(20), NOT NULL)
    - Stores the price of the product item.
 
-5. **last_updated_dt** (DATETIME)
+5. **last_updated_dt** (DATETIME, NOT NULL)
    - Represents the date and time when the product item was last updated. Indexed to improve search performance.
 
 ### Indexes

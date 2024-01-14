@@ -1,15 +1,13 @@
 from app.dao.item_dao import get_items, get_items_by_category
 from app.services.item_validation_service import ItemValidationService
-from app.utils.constant import ALL_CATEGORIES, PRICE_FORMATTER
+from app.utils.app_error import MissingMandatoryFieldError
+from app.utils.constant import ALL_CATEGORIES, PRICE_FORMATTER, SEARCH_CATEGORY_REQUEST_MANDATORY_FIELDS
+from app.utils.request_validation_utils import check_mandatory_fields
 
 
 def validate_input(category):
     item_validation_service = ItemValidationService()
     item_validation_service.validate_category(**category)
-
-
-def calculate_total_price(items):
-    return sum(float(item.price) for item in items)
 
 
 def group_items_by_category(items_data):
@@ -40,11 +38,13 @@ def format_grouped_items(grouped_items):
     return grouped_items
 
 
-def aggregate_items_by_category(category_data):
+def aggregate_items_by_category(request):
     try:
-        validate_input(category_data)
+        check_mandatory_fields(request, SEARCH_CATEGORY_REQUEST_MANDATORY_FIELDS)
 
-        category = category_data.get("category", ALL_CATEGORIES)
+        validate_input(request)
+
+        category = request.get("category", ALL_CATEGORIES)
 
         items_data = get_items() if category == ALL_CATEGORIES \
             else get_items_by_category(category)
@@ -54,5 +54,5 @@ def aggregate_items_by_category(category_data):
 
         return {"items": formatted_items}
 
-    except (Exception, ValueError) as e:
+    except (MissingMandatoryFieldError, ValueError, Exception) as e:
         return {'error': str(e)}

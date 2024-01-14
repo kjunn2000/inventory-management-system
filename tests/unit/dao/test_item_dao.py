@@ -21,14 +21,18 @@ class TestItemDAO(unittest.TestCase):
     def test_item_exists(self, mock_get_database_connection):
         mock_get_database_connection.return_value.__enter__.return_value = (None, self.mock_cursor)
         self.mock_cursor.fetchone.return_value = (1,)
+
         result = item_exists("test_item")
+
         self.assertTrue(result)
 
     @patch("app.dao.item_dao.get_database_connection")
     def test_item_not_exists(self, mock_get_database_connection):
         mock_get_database_connection.return_value.__enter__.return_value = (None, self.mock_cursor)
         self.mock_cursor.fetchone.return_value = None
+
         result = item_exists("test_item")
+
         self.assertFalse(result)
 
     @patch("app.dao.item_dao.get_database_connection")
@@ -37,7 +41,9 @@ class TestItemDAO(unittest.TestCase):
         mock_get_database_connection.return_value.__enter__.return_value = (mock_connection, self.mock_cursor)
         self.mock_cursor.fetchone.return_value = (1,)
         new_item = Mock(name="test_item", category="test_category", price=10)
+
         result = update_item(new_item)
+
         self.assertEqual(result, 1)
 
     @patch("app.dao.item_dao.get_database_connection")
@@ -46,7 +52,9 @@ class TestItemDAO(unittest.TestCase):
         mock_get_database_connection.return_value.__enter__.return_value = (mock_connection, self.mock_cursor)
         self.mock_cursor.lastrowid = 123
         new_item = Mock(name="test_item", category="test_category", price=10)
+
         result = create_item(new_item)
+
         self.assertEqual(result, 123)
 
     @patch("app.dao.item_dao.get_database_connection")
@@ -54,7 +62,9 @@ class TestItemDAO(unittest.TestCase):
         mock_connection = Mock()
         mock_get_database_connection.return_value.__enter__.return_value = (mock_connection, self.mock_cursor)
         self.mock_cursor.fetchall.return_value = [(1, "item1", "category1", 10, "2022-01-01")]
+
         result = get_items()
+
         self.assertEqual(len(result), 1)
         self.assertIsInstance(result[0], Item)
 
@@ -63,7 +73,9 @@ class TestItemDAO(unittest.TestCase):
         mock_connection = Mock()
         mock_get_database_connection.return_value.__enter__.return_value = (mock_connection, self.mock_cursor)
         self.mock_cursor.fetchall.return_value = [(1, "item1", "category1", 10, "2022-01-01")]
+
         result = get_items_by_dt("2022-01-01", "2022-01-02")
+
         self.assertEqual(len(result), 1)
         self.assertIsInstance(result[0], Item)
 
@@ -72,6 +84,8 @@ class TestItemDAO(unittest.TestCase):
         mock_connection = Mock()
         mock_get_database_connection.return_value.__enter__.return_value = (mock_connection, self.mock_cursor)
         self.mock_cursor.fetchall.return_value = [(1, "item1", "category1", 10, "2022-01-01")]
+
         result = get_items_by_category("category1")
+
         self.assertEqual(len(result), 1)
         self.assertIsInstance(result[0], Item)

@@ -1,0 +1,2 @@
+class MissingMandatoryFieldError(Exception):
+    pass

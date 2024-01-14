@@ -5,6 +5,17 @@
 - **Database:** MySQL 8.0
 - **IDE:** PyCharm Community Edition v2023.3.2
 
+## Assumptions
+
+1. **Name Uniqueness:** The assumption is made that the "Name" attribute is unique across all categories. Users are expected not to enter a name that already exists in another category.
+
+## System Constraints
+
+1. **Name Length Constraint:** The "Name" attribute is constrained to a maximum length of 255 characters.
+2. **Category Length Constraint:** The "Category" attribute is constrained to a maximum length of 50 characters.
+3. **Price Length Constraint:** The "Price" attribute is constrained to a maximum length of 20 characters.
+
+
 ## Project Setup Guide
 
 This guide provides step-by-step instructions to successfully set up the system for development and testing. Ensure that you follow each step in order.
@@ -62,6 +73,11 @@ pip install -r requirements.txt  # Install project dependencies
 ```bash
 pip install -e . # Install the project in editable mode
 ```
+
+### 6. Copy the .env.example file and rename it to .env:
+![alt text](https://github.com/kjunn2000/inventing_management_system_readme_image/blob/main/image%20(30).png?raw=true)
+
+
 # How to run it
 
 ## Feature 1 - Create or Update Item Feature

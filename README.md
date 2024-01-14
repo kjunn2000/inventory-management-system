@@ -149,7 +149,7 @@ python -m coverage report
 
 ## Table: t_product_item
 
-![alt text](https://github.com/kjunn2000/inventing_management_system_readme_image/blob/main/inv_dd.drawio.png?raw=true)
+![alt text](https://github.com/kjunn2000/inventing_management_system_readme_image/blob/main/image%20(38).png?raw=true)
 
 ### Columns
 1. **id** (INT, AUTO_INCREMENT)
@@ -165,8 +165,10 @@ python -m coverage report
    - Stores the price of the product item.
 
 5. **last_updated_dt** (DATETIME, NOT NULL)
-   - Represents the date and time when the product item was last updated. Indexed to improve search performance.
+   - Represents the date and time when the product item was last updated.
 
 ### Indexes
+- **category**
+  - Index on the `category` column to enhance the search performance for queries involving this field.
 - **idx_last_updated_dt**
   - Index on the `last_updated_dt` column to enhance the search performance for queries involving this field.

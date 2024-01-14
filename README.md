@@ -94,7 +94,7 @@ python .\scripts\create_update_item_script.py
 ![alt text](https://github.com/kjunn2000/inventing_management_system_readme_image/blob/main/img_6.png?raw=true)
 
 
-## Feature 2 - Create or Update Item Feature
+## Feature 2 - Search Item by Last Updated Datetime
 
 This script is search the items by last updated datatime. You can modify the request from the file search_items_script.py.
 

@@ -51,7 +51,7 @@ cd inventory-management-system
 Run the docker-compose.yml to set up the MySQL database instance and initialize the table schema.
 
 ```bash
-docker-compose up
+docker-compose up -d
 ```
 
 ### 4. Create and Activate a Virtual Environment:

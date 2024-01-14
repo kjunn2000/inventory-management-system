@@ -7,13 +7,13 @@
 
 ## Assumptions
 
-1. **Name Uniqueness:** The assumption is made that the "Name" attribute is unique across all categories. Users are expected not to enter a name that already exists in another category.
+1. **Name Uniqueness:** The assumption is made that the "Name" attribute in Item is unique across all categories. Users are expected not to enter a name that already exists in another category.
 
 ## System Constraints
 
 1. **Name Length Constraint:** The "Name" attribute is constrained to a maximum length of 255 characters.
 2. **Category Length Constraint:** The "Category" attribute is constrained to a maximum length of 50 characters.
-3. **Price Length Constraint:** The "Price" attribute is constrained to a maximum length of 20 characters.
+3. **Price Length Constraint:** The "Price" attribute is constrained to a maximum length of 20 characters including decimal places.
 
 
 ## Project Setup Guide
@@ -89,7 +89,7 @@ This script is used for creating or updating items. You can modify the request f
 python .\scripts\create_update_item_script.py
 ```
 ### Request
-![alt text](https://github.com/kjunn2000/inventing_management_system_readme_image/blob/main/img_7.png?raw=true)
+![alt text](https://github.com/kjunn2000/inventing_management_system_readme_image/blob/main/image%20(34).png?raw=true)
 ### Response
 ![alt text](https://github.com/kjunn2000/inventing_management_system_readme_image/blob/main/img_6.png?raw=true)
 
@@ -118,6 +118,8 @@ python .\scripts\search_cateogry_script.py
 ### Response
 ![alt text](https://github.com/kjunn2000/inventing_management_system_readme_image/blob/main/img_10.png?raw=true)
 
+
+
 # How to test it
 ## 1. Run Unit Tests:
 
@@ -139,3 +141,31 @@ This generates and displays a code coverage report for the unit tests. By run th
 python -m coverage report
 ```
 ![alt text](https://github.com/kjunn2000/inventing_management_system_readme_image/blob/main/image%20(33).png?raw=true)
+
+
+
+# Database Design Document
+
+## Table: t_product_item
+
+![alt text](https://github.com/kjunn2000/inventing_management_system_readme_image/blob/main/inv_dd.drawio.png?raw=true)
+
+### Columns
+1. **id** (INT, AUTO_INCREMENT)
+   - Primary key for the product item.
+
+2. **name** (VARCHAR(255), UNIQUE)
+   - Unique identifier for the product item. Assigned as a unique key to ensure each product has a distinct name.
+
+3. **category** (VARCHAR(50))
+   - Represents the category to which the product belongs.
+
+4. **price** (VARCHAR(20))
+   - Stores the price of the product item.
+
+5. **last_updated_dt** (DATETIME)
+   - Represents the date and time when the product item was last updated. Indexed to improve search performance.
+
+### Indexes
+- **idx_last_updated_dt**
+  - Index on the `last_updated_dt` column to enhance the search performance for queries involving this field.

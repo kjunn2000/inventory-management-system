@@ -42,7 +42,11 @@ After cloned the project, change directory to the folder.
 cd inventory-management-system 
 ````
 
-### 2. Start Docker Compose:
+### 2. Copy the .env.example file and rename it to .env:
+![alt text](https://github.com/kjunn2000/inventing_management_system_readme_image/blob/main/image%20(30).png?raw=true)
+
+
+### 3. Start Docker Compose:
 
 Run the docker-compose.yml to set up the MySQL database instance and initialize the table schema.
 
@@ -50,7 +54,7 @@ Run the docker-compose.yml to set up the MySQL database instance and initialize 
 docker-compose up
 ```
 
-### 3. Create and Activate a Virtual Environment:
+### 4. Create and Activate a Virtual Environment:
 
 Activating the virtual environment isolates project dependencies.
 
@@ -60,7 +64,7 @@ venv\Scripts\activate   # On Windows
 source venv/bin/activate # On Unix or MacOS
 ```
 
-### 4. Install Project Dependencies:
+### 5. Install Project Dependencies:
 
 Some dependencies are used in this project including requests, mysql-connector-python, coverage and python-dotenv
 
@@ -68,14 +72,11 @@ Some dependencies are used in this project including requests, mysql-connector-p
 pip install -r requirements.txt  # Install project dependencies
 ```
 
-### 5. Install Project in Editable Mode:
+### 6. Install Project in Editable Mode:
 
 ```bash
 pip install -e . # Install the project in editable mode
 ```
-
-### 6. Copy the .env.example file and rename it to .env:
-![alt text](https://github.com/kjunn2000/inventing_management_system_readme_image/blob/main/image%20(30).png?raw=true)
 
 
 # How to run it

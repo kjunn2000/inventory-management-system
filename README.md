@@ -83,7 +83,7 @@ pip install -e . # Install the project in editable mode
 
 ## Feature 1 - Create or Update Item Feature
 
-This script is used for creating or updating items. You can modify the request from the file create_update_item_script.py.
+This script is used for creating or updating items. You can modify the request from the file create_update_item_script.py. If it is a newly created item, a newly assigned id will be returned, else if the name existed in database, the price of the item will be updated and the updated item's id will be returned.
 
 ```bash
 python .\scripts\create_update_item_script.py

@@ -66,16 +66,16 @@ source venv/bin/activate # On Unix or MacOS
 
 ### 5. Install Project Dependencies:
 
-Some dependencies are used in this project including requests, mysql-connector-python, coverage and python-dotenv
+Some dependencies are used in this project including mysql-connector-python, coverage and python-dotenv
 
 ```bash
-pip install -r requirements.txt  # Install project dependencies
+pip install -r requirements.txt
 ```
 
 ### 6. Install Project in Editable Mode:
 
 ```bash
-pip install -e . # Install the project in editable mode
+pip install -e .
 ```
 
 
@@ -86,7 +86,8 @@ pip install -e . # Install the project in editable mode
 This script is used for creating or updating items. You can modify the request from the file create_update_item_script.py. If it is a newly created item, a newly assigned id will be returned, else if the name existed in database, the price of the item will be updated and the updated item's id will be returned.
 
 ```bash
-python .\scripts\create_update_item_script.py
+python .\scripts\create_update_item_script.py # On Windows
+python scripts/create_update_item_script.py  # On Unix
 ```
 ### Request
 ![alt text](https://github.com/kjunn2000/inventing_management_system_readme_image/blob/main/image%20(34).png?raw=true)
@@ -99,7 +100,8 @@ python .\scripts\create_update_item_script.py
 This script is search the items by last updated datatime. You can modify the request from the file search_items_script.py.
 
 ```bash
-python .\scripts\search_items_script.py 
+python .\scripts\search_items_script.py # On Windows
+python scripts/search_items_script.py   # On Unix
 ```
 ### Request
 ![alt text](https://github.com/kjunn2000/inventing_management_system_readme_image/blob/main/img_9.png?raw=true)
@@ -111,7 +113,8 @@ python .\scripts\search_items_script.py
 This script is aggregate category data and return it with total count for each category. You can modify the request from the file search_cateogry_script.py.
 
 ```bash
-python .\scripts\search_cateogry_script.py  
+python .\scripts\search_cateogry_script.py # On Windows
+python scripts/search_cateogry_script.py   # On Unix
 ```
 ### Request
 ![alt text](https://github.com/kjunn2000/inventing_management_system_readme_image/blob/main/img_5.png?raw=true)
@@ -126,7 +129,8 @@ python .\scripts\search_cateogry_script.py
 PyUnit is used for the unit testing in the project. The command below runs all the unit tests for the project. There are a total number of 65 test cases.
 
 ```bash
-python -m coverage run -m unittest discover .\tests\unit\
+python -m coverage run -m unittest discover .\tests\unit\ # On Windows
+python -m coverage run -m unittest discover tests/unit    # On Unix
 ```
 
 After run the script above, you should expect to see the below result.

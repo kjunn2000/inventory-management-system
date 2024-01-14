@@ -23,7 +23,7 @@ This guide provides step-by-step instructions to successfully set up the system 
 ## Prerequisites
 
 1. Install Python:
-   - Download and install Python from [python.org](https://www.python.org/).
+   - Download and install Python (prefer version 3.11) from [python.org](https://www.python.org/).
 
 2. Install Docker:
    - Ensure Docker is installed on your machine. You can download it from [Docker's official website](https://www.docker.com/).

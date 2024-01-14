@@ -120,29 +120,21 @@ python .\scripts\search_cateogry_script.py
 # How to test it
 ## 1. Run Unit Tests:
 
-PyUnit is used for the unit testing in the project. The command below runs all the unit tests for the project. There are a total number of 53 test cases.
+PyUnit is used for the unit testing in the project. The command below runs all the unit tests for the project. There are a total number of 60 test cases.
 
 ```bash
-python -m unittest discover .\tests\unit\
+python -m coverage run -m unittest discover .\tests\unit\
 ```
 
 After run the script above, you should expect to see the below result.
 
-![alt text](https://github.com/kjunn2000/inventing_management_system_readme_image/blob/main/img_13.png?raw=true)
+![alt text](https://github.com/kjunn2000/inventing_management_system_readme_image/blob/main/image%20(32).png?raw=true)
 
 ## 2. Generate and View Code Coverage Report:
 
-This generates and displays a code coverage report for the unit tests. By run the attached script, you should get similar result (100% code coverage).
-There are one folder that state at below will be excluded from the test coverage report
-1) dao, since the purpose it exists is interacting with database, it is best practice to test it as integration test with a mock database.
+This generates and displays a code coverage report for the unit tests. By run the script below, you can view the result that has 100% code coverage.
 
 ```bash
-python -m coverage run --omit="*/dao/*" -m unittest discover .\tests\unit\
-```
-![alt text](https://github.com/kjunn2000/inventing_management_system_readme_image/blob/main/img_2.png?raw=true)
-
-```
 python -m coverage report
 ```
-
-![alt text](https://github.com/kjunn2000/inventing_management_system_readme_image/blob/main/img_3.png?raw=true)
+![alt text](https://github.com/kjunn2000/inventing_management_system_readme_image/blob/main/image%20(33).png?raw=true)
